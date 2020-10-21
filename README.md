@@ -20,17 +20,18 @@ sudo raspi-config
 
 或者参照其他方法[打开 SPI](https://www.raspberrypi-spy.co.uk/2014/08/enabling-the-spi-interface-on-the-raspberry-pi/)
 
-首先下载仓库，然后安装一些必备的库。
+首先下载仓库，然后安装IT8951的驱动和FFMPEG。
 
 ```key
-git clone git@github.com:TwinsenLiang/SlowMovie.git
-cd ‘SlowMovie/IT8951’
+git clone https://github.com/TwinsenLiang/SlowMovie.git
+cd SlowMovie/IT8951
 pip3 install -r requirements.txt
 pip3 install ./
 pip3 install ffmpeg-python
 ```
 完成以后跑下测试，理应能看到只睡觉的企鹅。
 ```key
+cd ～/SlowMovie/
 python3 helloworld.py
 ```
 ![avatar](/images/sleeping_penguin.png)
@@ -46,7 +47,7 @@ sudo nano /etc/profile
 
 在最后加入代码：
 ```key
-cd SlowMovie
+cd ～/SlowMovie/
 sudo python slowmovie.py
 ```
 
