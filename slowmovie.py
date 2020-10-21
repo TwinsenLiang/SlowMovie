@@ -44,7 +44,7 @@ parser.add_argument('-f', '--file', type=check_mp4,
                     help="Add a filename to start playing a specific film. Otherwise will pick a random file, and will move to another film randomly afterwards.")
 parser.add_argument('-d', '--delay',  default=10,
                     help="Delay between screen updates, in seconds")
-parser.add_argument('-i', '--inc',  default=4,
+parser.add_argument('-i', '--inc',  default=5,
                     help="Number of frames skipped between screen updates")
 parser.add_argument('-s', '--start',
                     help="Start at a specific frame")
