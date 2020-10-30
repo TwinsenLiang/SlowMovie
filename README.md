@@ -40,7 +40,9 @@ python3 helloworld.py
 ```key
 python3 slowmovie.py
 ```
-最后，修改树莓派启动项。
+
+## 设定自启动
+### 方法一：修改树莓派启动项。
 ```key
 sudo nano /etc/profile
 ```
@@ -48,7 +50,38 @@ sudo nano /etc/profile
 在最后加入代码：
 ```key
 cd ～/SlowMovie/
-sudo python slowmovie.py
+python3 slowmovie.py
+```
+### 方法二：安装PM2。
+```key
+sudo npm install -g pm2
+```
+
+设置PM2开机启动
+```key
+pm2 startup
+```
+运行此命令后会显示一个类似如下的命令，复制此命令到终端运行。
+
+```key
+[PM2] To setup the Startup Script, copy/paste the following command:
+sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u pi --hp /home/pi
+```
+
+使用PM2启动slowmovie
+
+```key
+cd ~/SlowMovie/
+pm2 start slowmovie.sh
+使用PM2启动snowboy 语音助手程序
+
+```key
+pm2 save
+```
+
+可以运行下面语句关闭对应的脚本服务。注意，需要使用Pi用户，不能使用管理员用户。
+```key
+pm2 stop slowmovie
 ```
 
 ## 原始的一些仓库和资料：
