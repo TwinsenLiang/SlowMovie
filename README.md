@@ -65,7 +65,7 @@ pm2 startup
 
 ```key
 [PM2] To setup the Startup Script, copy/paste the following command:
-sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u pi --hp /home/pi
+sudo env PATH=$PATH:/usr/bin /usr/local/lib/node_modules/pm2/bin/pm2 startup systemd -u pi --hp /home/pi
 ```
 
 使用PM2启动slowmovie
@@ -73,7 +73,9 @@ sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -
 ```key
 cd ~/SlowMovie/
 pm2 start slowmovie.sh
-使用PM2启动snowboy 语音助手程序
+```
+
+使用PM2启动slowmovie
 
 ```key
 pm2 save
