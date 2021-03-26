@@ -153,8 +153,6 @@ print("there are %d frames in this video" % frameCount)
 
 while 1:
 
-display.epd.run()
-
     if args.random:
         frame = random.randint(0, frameCount)
     else:
