@@ -1,1 +1,1 @@
-python slowmovie.py
+python3 slowmovie.py
