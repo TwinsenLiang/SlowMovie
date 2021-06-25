@@ -31,7 +31,7 @@ pip3 install ffmpeg-python
 ```
 完成以后跑下测试，理应能看到只睡觉的企鹅。
 ```key
-cd ～/SlowMovie/
+cd ~/SlowMovie/
 python3 helloworld.py
 ```
 ![avatar](/images/sleeping_penguin.png)
