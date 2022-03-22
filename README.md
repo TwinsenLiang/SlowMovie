@@ -88,7 +88,8 @@ pm2 stop slowmovie
 
 ## 原始的一些仓库和资料：
 
-Forked from [TomWhitwell/SlowMovie](https://github.com/TomWhitwell/SlowMovie)
+Forked from [TomWhitwell/SlowMovie](https://github.com/TomWhitwell/SlowMovie/tree/v0.2-revisions)
+TomWhitwell的main版本驱动配置有点问题，建议非HDMI的同学用回0.2版本。
 
 Forked from [GregDMeyer/IT8951](https://github.com/GregDMeyer/IT8951)
 
