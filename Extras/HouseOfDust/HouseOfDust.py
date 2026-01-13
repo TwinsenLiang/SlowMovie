@@ -32,9 +32,21 @@ while(1):
     ruleCount = 8
 
     tab = "   "
-    tabSize = font.getsize(tab)[0] # six spaces for a tab 
-    lineHeight = font.getsize("M")[1]
-    charWidth = font.getsize("M")[0]
+
+    # 使用 textbbox 替代已弃用的 getsize (兼容 Pillow 10.0+)
+    try:
+        bbox_tab = draw.textbbox((0, 0), tab, font=font)
+        tabSize = bbox_tab[2] - bbox_tab[0]
+
+        bbox_M = draw.textbbox((0, 0), "M", font=font)
+        lineHeight = bbox_M[3] - bbox_M[1]
+        charWidth = bbox_M[2] - bbox_M[0]
+    except AttributeError:
+        # 旧版 Pillow 使用 getsize
+        tabSize = font.getsize(tab)[0]
+        lineHeight = font.getsize("M")[1]
+        charWidth = font.getsize("M")[0]
+
     lineSpacing = 2
 
     ruleHeight = (lineHeight * lineSpacing) / ruleCount;

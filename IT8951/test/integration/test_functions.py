@@ -112,8 +112,15 @@ def _place_text(img, text, x_offset=0, y_offset=0):
         font = ImageFont.truetype('/usr/share/fonts/TTF/DejaVuSans.ttf', fontsize)
 
     img_width, img_height = img.size
-    text_width, _ = font.getsize(text)
-    text_height = fontsize
+
+    # 使用 textbbox 替代已弃用的 getsize (兼容 Pillow 10.0+)
+    try:
+        bbox = draw.textbbox((0, 0), text, font=font)
+        text_width = bbox[2] - bbox[0]
+        text_height = bbox[3] - bbox[1]
+    except AttributeError:
+        text_width, _ = font.getsize(text)
+        text_height = fontsize
 
     draw_x = (img_width - text_width)//2 + x_offset
     draw_y = (img_height - text_height)//2 + y_offset

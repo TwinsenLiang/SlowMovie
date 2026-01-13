@@ -1,2 +1,14 @@
-RPi.GPIO
+# IT8951 墨水屏驱动依赖
+# 仅包含硬件控制所需的库
+
+# GPIO 控制库（替代 RPi.GPIO，支持 Python 3.12+）
+rpi-lgpio
+
+# 图像处理库（驱动层图像操作）
 pillow
+
+# 构建依赖（Python 3.13+ 需要）
+# setuptools: 提供 distutils 兼容层（Cython 需要）
+# Cython: 用于编译 C 扩展模块
+setuptools
+Cython

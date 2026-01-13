@@ -1,0 +1,9 @@
+# SlowMovie 主程序依赖
+# 用于视频帧提取和图像处理
+
+# 图像处理库
+pillow>=10.0
+
+# FFmpeg Python 接口（用于视频帧提取）
+# 注意：需要先安装系统 ffmpeg: sudo apt install ffmpeg
+ffmpeg-python
