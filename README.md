@@ -139,15 +139,30 @@ sudo nano /etc/profile
 cd ~/SlowMovie/ && ./service.sh start
 ```
 
-### 方法二：使用 PM2
+### 方法二：使用 PM2（推荐）
 
 ```bash
+# 安装 PM2
 sudo npm install -g pm2
+
+# 设置开机自启
 pm2 startup  # 复制输出的命令并执行
 
+# 启动 SlowMovie
 cd ~/SlowMovie/
-pm2 start service.sh -- start
+pm2 start venv/bin/python3 --name slowmovie -- slowmovie.py
+
+# 保存配置
 pm2 save
+
+# 查看状态
+pm2 list
+
+# 查看日志
+pm2 logs slowmovie
+
+# 停止服务
+pm2 stop slowmovie
 ```
 
 ## 兼容性
