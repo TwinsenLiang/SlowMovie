@@ -11,11 +11,13 @@
 - Waveshare 6inch HD e-Paper HAT (IT8951)
 - IKEA VÄSTANHED 画框
 
-**推荐配置**（低功耗）：
-- Raspberry Pi Zero 2 W
+**推荐配置**：
+- Raspberry Pi Zero 2 W（低功耗，更低成本）
 - Waveshare Zero UPS（不间断电源）
-- Waveshare 7.8inch e-Paper
+- Waveshare 7.8inch e-Paper（照片清晰化）
 - IKEA VÄSTANHED 画框
+
+![](Extras/img_78.jpg)
 
 ## 快速开始
 
