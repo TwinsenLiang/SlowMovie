@@ -12,7 +12,7 @@
 #   restart - 重启服务
 #   status  - 查看服务状态
 #   logs    - 查看实时日志
-#   test    - 运行测试程序（helloworld.py）
+#   test    - 运行测试程序（test/helloworld.py）
 #   help    - 显示帮助信息
 
 # ============================================================
@@ -628,20 +628,20 @@ run_test() {
     fi
 
     # 检查测试文件是否存在
-    if [ ! -f "helloworld.py" ]; then
-        echo "错误: 测试文件 helloworld.py 不存在"
+    if [ ! -f "test/helloworld.py" ]; then
+        echo "错误: 测试文件 test/helloworld.py 不存在"
         exit 1
     fi
 
-    echo "正在运行 helloworld.py 测试..."
+    echo "正在运行 test/helloworld.py 测试..."
     echo ""
 
     # 运行测试
     if [ "$USE_VENV" = "true" ]; then
         source venv/bin/activate
-        python3 helloworld.py "$@"
+        python3 test/helloworld.py "$@"
     else
-        python3 helloworld.py "$@"
+        python3 test/helloworld.py "$@"
     fi
 
     TEST_RESULT=$?
