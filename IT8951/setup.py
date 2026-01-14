@@ -26,7 +26,7 @@ for name in ext_names:
     extensions.append(
         Extension(
             "IT8951.{}".format(name),
-            ["IT8951/{}{}".format(name, ext)],
+            ["{}{}".format(name, ext)],
         )
     )
 
