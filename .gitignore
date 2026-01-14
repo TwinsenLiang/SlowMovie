@@ -50,3 +50,6 @@ logs/*.log
 nowPlaying
 grab.jpg
 test_grab.jpg
+
+# 本地工作记录（不提交）
+CLAUDE.md
