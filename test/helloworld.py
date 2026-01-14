@@ -1,4 +1,10 @@
 
+import sys
+import os
+
+# 添加父目录到 sys.path，以便导入 functions.py
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from time import sleep
 import argparse
 
