@@ -17,3 +17,36 @@ Network Trash Folder
 Temporary Items
 .apdisk
 .DS_Store
+
+# Python 编译产物
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Cython 编译产物
+*.c
+*.cpp
+
+# 构建产物
+build/
+dist/
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
+
+# 测试
+.pytest_cache/
+.coverage
+
+# 日志
+*.log
+logs/*.log
+!logs/.gitkeep
+
+# 运行时文件
+nowPlaying
+grab.jpg
+test_grab.jpg
