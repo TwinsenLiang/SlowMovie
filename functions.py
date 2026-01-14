@@ -18,10 +18,8 @@ __all__ = [
     'partial_update'
 ]
 
+import os
 from PIL import Image, ImageDraw, ImageFont
-
-from sys import path
-path += ['../../']
 
 
 def print_system_info(display):
@@ -68,7 +66,12 @@ def display_gradient(display):
     display.draw_partial(constants.DisplayModes.DU)
 
 
-def display_image_8bpp(display, img_path='test/sleeping_penguin.png'):
+def display_image_8bpp(display, img_path=None):
+    # 默认使用项目根目录下的 test/sleeping_penguin.png
+    if img_path is None:
+        # 获取 functions.py 所在目录（项目根目录）
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        img_path = os.path.join(base_dir, 'test', 'sleeping_penguin.png')
 
     print('Displaying "{}"...'.format(img_path))
 
