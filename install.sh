@@ -139,7 +139,7 @@ print_success "主程序依赖安装完成"
 # 安装 IT8951 驱动
 print_step "步骤 4: 安装 IT8951 墨水屏驱动"
 print_info "安装驱动依赖..."
-cd IT8951
+cd driver/IT8951
 pip install -r requirements.txt
 
 print_info "编译并安装 IT8951 驱动（使用 Cython）..."
@@ -151,7 +151,7 @@ else
     USE_CYTHON=1 pip install --no-build-isolation ./
 fi
 
-cd ..
+cd ../..
 print_success "IT8951 驱动安装完成"
 
 # 设置用户权限
