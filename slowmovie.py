@@ -151,6 +151,14 @@ inputVid = viddir + currentVideo
 frameCount = int(ffmpeg.probe(inputVid)['streams'][0]['nb_frames'])
 print("there are %d frames in this video" % frameCount)
 
+# Validate and fix currentPosition if it exceeds frameCount
+if currentPosition >= frameCount:
+    print("Warning: currentPosition (%d) exceeds frameCount (%d), resetting to 0" % (currentPosition, frameCount))
+    currentPosition = 0
+    log = open(logdir + '%s<progress' % currentVideo, 'w')
+    log.write(str(currentPosition))
+    log.close()
+
 while 1:
 
     display.epd.run()
