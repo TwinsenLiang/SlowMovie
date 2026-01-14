@@ -1,6 +1,6 @@
 # 慢电影墨水屏播放器
 
-![](Extras/img.jpg)
+![6寸屏效果图](docs/images/screen-6inch.jpg)
 
 一个在墨水屏上极慢速播放电影的树莓派项目。整合了微雪高清墨水屏 IT8951 驱动支持，兼容 Python 3.13+ 和 Pillow 10.0+。
 
@@ -17,7 +17,7 @@
 - Waveshare 7.8inch e-Paper（照片清晰化）
 - IKEA VÄSTANHED 画框
 
-![](Extras/img_78.jpg)
+![7.8寸屏效果图](docs/images/screen-78inch.jpg)
 
 ## 快速开始
 
