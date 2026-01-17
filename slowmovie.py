@@ -147,9 +147,11 @@ height = display.height
 
 inputVid = viddir + currentVideo
 
-# Check how many frames are in the movie
-frameCount = int(ffmpeg.probe(inputVid)['streams'][0]['nb_frames'])
-print("there are %d frames in this video" % frameCount)
+# Check how many frames are in the movie and get FPS
+probe_info = ffmpeg.probe(inputVid)['streams'][0]
+frameCount = int(probe_info['nb_frames'])
+fps = eval(probe_info['r_frame_rate'])  # e.g., "30000/1001" -> 29.97
+print("there are %d frames in this video (%.2f fps)" % (frameCount, fps))
 
 # Validate and fix currentPosition if it exceeds frameCount
 if currentPosition >= frameCount:
@@ -168,7 +170,8 @@ while 1:
     else:
         frame = currentPosition
 
-    msTimecode = "%dms" % (frame*41.666666)
+    # Calculate timecode based on actual FPS instead of hardcoded 24fps
+    msTimecode = "%dms" % int(frame / fps * 1000)
 
     # Use ffmpeg to extract a frame from the movie, crop it, letterbox it and save it as grab.jpg
     generate_frame(inputVid, 'grab.jpg', msTimecode, width, height)
