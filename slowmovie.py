@@ -139,7 +139,26 @@ if args.start:
     currentPosition = float(args.start)
 
 
-display = AutoEPDDisplay(vcom=-2.36, spi_hz=24000000)
+# Initialize display with retry mechanism
+max_retries = 5
+retry_delay = 10
+display = None
+
+for attempt in range(max_retries):
+    try:
+        print(f"Connecting to IT8951 display (attempt {attempt + 1}/{max_retries})...")
+        display = AutoEPDDisplay(vcom=-2.36, spi_hz=24000000)
+        print("Display connected successfully!")
+        break
+    except RuntimeError as e:
+        print(f"Failed to connect: {e}")
+        if attempt < max_retries - 1:
+            print(f"Retrying in {retry_delay} seconds...")
+            time.sleep(retry_delay)
+        else:
+            print("Max retries reached. Exiting.")
+            sys.exit(1)
+
 clear_display(display)
 # Ensure this matches your particular screen
 width = display.width

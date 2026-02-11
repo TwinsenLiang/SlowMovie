@@ -131,38 +131,50 @@ python3 slowmovie.py -f Videos/movie.mp4 -d 10 -i 1
 
 ## 开机自启
 
-### 方法一：编辑启动脚本
+### 方法一：使用 systemd（推荐）
+
+```bash
+# 创建服务文件
+sudo tee /etc/systemd/system/slowmovie.service << 'EOF'
+[Unit]
+Description=SlowMovie 慢电影播放器
+After=network.target
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+[Service]
+Type=simple
+User=你的用户名
+WorkingDirectory=/home/你的用户名/SlowMovie
+ExecStartPre=/bin/sleep 10
+ExecStart=/home/你的用户名/SlowMovie/venv/bin/python3 slowmovie.py
+Restart=on-failure
+RestartSec=60
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# 启用并启动服务
+sudo systemctl daemon-reload
+sudo systemctl enable slowmovie
+sudo systemctl start slowmovie
+
+# 查看状态
+sudo systemctl status slowmovie
+
+# 查看日志
+sudo journalctl -u slowmovie -f
+```
+
+> **说明**：`ExecStartPre=/bin/sleep 10` 延迟启动，确保 IT8951 驱动板初始化完成。
+
+### 方法二：编辑启动脚本
 
 ```bash
 sudo nano /etc/profile
 # 在文件末尾添加：
 cd ~/SlowMovie/ && ./service.sh start
-```
-
-### 方法二：使用 PM2（推荐）
-
-```bash
-# 安装 PM2
-sudo npm install -g pm2
-
-# 设置开机自启
-pm2 startup  # 复制输出的命令并执行
-
-# 启动 SlowMovie
-cd ~/SlowMovie/
-pm2 start venv/bin/python3 --name slowmovie -- slowmovie.py
-
-# 保存配置
-pm2 save
-
-# 查看状态
-pm2 list
-
-# 查看日志
-pm2 logs slowmovie
-
-# 停止服务
-pm2 stop slowmovie
 ```
 
 ## 兼容性

@@ -1,5 +1,43 @@
 # 兼容性修复更新日志
 
+## 修复日期：2026-02-11
+
+### 动态帧率支持 & IT8951 连接重试
+
+#### 1. ✅ 动态帧率计算
+- **影响**: 原代码硬编码 24fps，导致非 24fps 视频时间码计算错误
+- **原因**: `msTimecode = "%dms" % (frame*41.666666)` 假设所有视频都是 24fps
+- **修复**: 从视频元数据读取实际帧率，动态计算时间码
+- **文件**: `slowmovie.py`
+- **代码变更**:
+  ```python
+  # 旧代码
+  msTimecode = "%dms" % (frame*41.666666)
+  
+  # 新代码
+  fps = eval(probe_info['r_frame_rate'])
+  msTimecode = "%dms" % int(frame / fps * 1000)
+  ```
+
+#### 2. ✅ IT8951 连接重试机制
+- **影响**: IT8951 驱动板启动时可能未就绪，导致程序崩溃
+- **修复**: 添加 5 次重试机制，每次间隔 10 秒
+- **文件**: `slowmovie.py`
+
+#### 3. ✅ systemd 服务配置优化
+- **影响**: 开机自启时 IT8951 可能未初始化完成
+- **修复**: 
+  - 添加 `ExecStartPre=/bin/sleep 10` 延迟启动
+  - 设置 `RestartSec=60` 避免频繁重启
+  - 添加 `StartLimitIntervalSec=300` 和 `StartLimitBurst=5` 限制重启次数
+- **文件**: README.md (systemd 配置示例)
+
+#### 4. ✅ 移除 PM2 依赖
+- **原因**: systemd 是更标准的服务管理方式，无需额外安装 Node.js/PM2
+- **修复**: README 中推荐使用 systemd 管理服务
+
+---
+
 ## 修复日期：2025-12-12
 
 ### Python 3.13 完整兼容性修复
