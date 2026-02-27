@@ -88,6 +88,51 @@ check_python() {
     fi
 }
 
+# 清理 GPIO 占用的僵尸进程（SlowMovie 专用）
+cleanup_gpio() {
+    echo "检查 GPIO 占用情况..."
+    
+    # 查找占用 gpiochip0 的进程
+    local GPIO_PIDS=$(lsof /dev/gpiochip0 2>/dev/null | grep -v "^COMMAND" | awk '{print $2}' | sort -u)
+    
+    if [ -n "$GPIO_PIDS" ]; then
+        echo "发现占用 GPIO 的进程:"
+        for pid in $GPIO_PIDS; do
+            local CMD=$(ps -p $pid -o cmd --no-headers 2>/dev/null)
+            echo "  PID $pid: $CMD"
+        done
+        
+        echo "正在清理 GPIO 占用进程..."
+        for pid in $GPIO_PIDS; do
+            kill -9 $pid 2>/dev/null
+            echo "  ✓ 已终止 PID $pid"
+        done
+        
+        # 等待 GPIO 释放
+        sleep 2
+        
+        # 验证清理结果
+        local REMAINING=$(lsof /dev/gpiochip0 2>/dev/null | grep -v "^COMMAND" | wc -l)
+        if [ "$REMAINING" -eq 0 ]; then
+            echo "✓ GPIO 已释放"
+        else
+            echo "⚠️ 警告: GPIO 仍被占用，可能需要手动检查"
+        fi
+    else
+        echo "✓ GPIO 未被占用"
+    fi
+    
+    # 同时清理可能存在的旧 slowmovie 进程
+    local OLD_PIDS=$(pgrep -f "slowmovie.py" | grep -v "$$")
+    if [ -n "$OLD_PIDS" ]; then
+        echo "发现遗留的 slowmovie 进程:"
+        for pid in $OLD_PIDS; do
+            echo "  终止 PID $pid"
+            kill -9 $pid 2>/dev/null
+        done
+    fi
+}
+
 # 检查虚拟环境（仅在 USE_VENV=true 时使用）
 check_venv() {
     if [ ! -d "venv" ]; then
@@ -155,6 +200,10 @@ start_service() {
 
     # 创建日志目录
     mkdir -p "$(dirname "$LOG_FILE")"
+
+    # 清理 GPIO 占用（SlowMovie 专用）
+    cleanup_gpio
+    echo ""
 
     # 检查端口是否被占用（如果配置了端口）
     if [ -n "$SERVICE_PORT" ]; then
