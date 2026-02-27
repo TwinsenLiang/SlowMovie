@@ -53,3 +53,7 @@ test_grab.jpg
 
 # 本地工作配置（不提交）
 CLAUDE.md
+
+# 视频目录 - 首次克隆会获取测试视频，后续本地改动不提交
+# 生产环境（如 SlowMovie 机器）可自由添加视频而不影响 Git
+Videos/
